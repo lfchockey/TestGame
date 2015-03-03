@@ -15,6 +15,8 @@
 		3FF23E271AA54B7500EF3BB0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FF23E261AA54B7500EF3BB0 /* Images.xcassets */; };
 		3FF23E2A1AA54B7500EF3BB0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF23E281AA54B7500EF3BB0 /* LaunchScreen.xib */; };
 		3FF23E361AA54B7500EF3BB0 /* TestGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF23E351AA54B7500EF3BB0 /* TestGameTests.swift */; };
+		3FF23E401AA63F0900EF3BB0 /* Tank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF23E3F1AA63F0900EF3BB0 /* Tank.swift */; };
+		3FF23E421AA6402400EF3BB0 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF23E411AA6402400EF3BB0 /* Bullet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		3FF23E2F1AA54B7500EF3BB0 /* TestGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FF23E341AA54B7500EF3BB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FF23E351AA54B7500EF3BB0 /* TestGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGameTests.swift; sourceTree = "<group>"; };
+		3FF23E3F1AA63F0900EF3BB0 /* Tank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tank.swift; sourceTree = "<group>"; };
+		3FF23E411AA6402400EF3BB0 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,8 @@
 				3FF23E261AA54B7500EF3BB0 /* Images.xcassets */,
 				3FF23E281AA54B7500EF3BB0 /* LaunchScreen.xib */,
 				3FF23E191AA54B7500EF3BB0 /* Supporting Files */,
+				3FF23E3F1AA63F0900EF3BB0 /* Tank.swift */,
+				3FF23E411AA6402400EF3BB0 /* Bullet.swift */,
 			);
 			path = TestGame;
 			sourceTree = "<group>";
@@ -221,7 +227,9 @@
 			files = (
 				3FF23E201AA54B7500EF3BB0 /* GameScene.swift in Sources */,
 				3FF23E221AA54B7500EF3BB0 /* GameViewController.swift in Sources */,
+				3FF23E421AA6402400EF3BB0 /* Bullet.swift in Sources */,
 				3FF23E1C1AA54B7500EF3BB0 /* AppDelegate.swift in Sources */,
+				3FF23E401AA63F0900EF3BB0 /* Tank.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
