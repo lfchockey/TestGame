@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 import SpriteKit
+import Darwin
 
 class Tank {
     var position = CGPoint()
     var speed = CGPoint(x: 0, y: 0)
+    var sprite = SKSpriteNode()
     var texture = SKTexture()
-    var bullets = [Bullet]()
+    var bullets: [Bullet] = [] //[Bullet]()
     var bulletNumber = 0
     let TOTAL_BULLETS = 10
     var life = 20
@@ -24,16 +26,32 @@ class Tank {
     init(playerNum: Int, filename: NSString, tankName: NSString) {
         
         // Set the class variables
+        self.sprite = SKSpriteNode(imageNamed: filename)
+        self.sprite.xScale = 0.1
+        self.sprite.yScale = 0.1
+        self.sprite.zRotation = CGFloat(M_PI)
         self.texture = SKTexture(imageNamed: filename)
+        self.sprite.physicsBody = SKPhysicsBody(texture: sprite.texture, size: sprite.size)
+        self.sprite.physicsBody?.affectedByGravity = false
         self.name = tankName
+        
+        // Initialize all of the Bullet objects
+        for i in 0..<TOTAL_BULLETS {
+            let bullet = Bullet()
+            bullets.append(bullet)
+            self.sprite.addChild(bullet.sprite)
+        }
         
         // Position the tanks based on which player they are
         if playerNum == 1 {
-            
+            position.x = 700
+            position.y = 650
         }
         else {
-            
+            position.x = 350
+            position.y = 150
         }
+        self.sprite.position = self.position
         
         func getSpeed() -> CGPoint {
             return self.speed
@@ -66,8 +84,8 @@ class Tank {
             self.speed = spd
         }
         
-        func moveTank() {
-            
+        func move() {
+            self.sprite.physicsBody?.velocity = CGVector(dx: self.speed.x, dy: self.speed.y)
         }
         
         func fire (bulletSpeed: CGPoint) {

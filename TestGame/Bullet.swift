@@ -11,13 +11,15 @@ import UIKit
 import SpriteKit
 
 class Bullet {
-    var position = CGPoint()
-    var speed = CGPoint()
+    var position = CGPoint(x: -50, y: -50)
+    var speed = CGPoint(x: 0, y: 0)
+    var sprite = SKSpriteNode(imageNamed: "Spaceship")
     var texture = SKTexture()
     var isBeingFired = false
     
     init () {
-        
+        self.sprite.xScale = 0.01
+        self.sprite.yScale = 0.01
     }
 
     func setSpeed (newSpeed: CGPoint, newPosition: CGPoint) {
@@ -42,7 +44,7 @@ class Bullet {
         self.speed = CGPoint(x: tempSpeedX, y: tempSpeedY)
     }
     
-    func move () {
+    func move() {
         if (self.isBeingFired) {
             //  Check to see if bullet goes off the View
             
