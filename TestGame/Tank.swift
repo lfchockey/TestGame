@@ -16,7 +16,8 @@ class Tank {
     var speed = CGPoint(x: 0, y: 0)
     var sprite = SKSpriteNode()
     var texture = SKTexture()
-    var bullets: [Bullet] = [] //[Bullet]()
+    var viewSize = CGPoint()    // width, height
+    var bullets: [Bullet] = []
     var bulletNumber = 0
     let TOTAL_BULLETS = 10
     var life = 20
@@ -30,7 +31,7 @@ class Tank {
         self.sprite.xScale = 0.1
         self.sprite.yScale = 0.1
         self.sprite.zRotation = CGFloat(M_PI)
-        self.texture = SKTexture(imageNamed: filename)
+        //self.texture = SKTexture(imageNamed: filename)
         self.sprite.physicsBody = SKPhysicsBody(texture: sprite.texture, size: sprite.size)
         self.sprite.physicsBody?.affectedByGravity = false
         self.name = tankName
@@ -38,8 +39,9 @@ class Tank {
         // Initialize all of the Bullet objects
         for i in 0..<TOTAL_BULLETS {
             let bullet = Bullet()
+            //bullet.viewSize = self.viewSize // this isn't initialized until later
             bullets.append(bullet)
-            self.sprite.addChild(bullet.sprite)
+            //self.sprite.addChild(bullet.sprite)
         }
         
         // Position the tanks based on which player they are
@@ -52,49 +54,56 @@ class Tank {
             position.y = 150
         }
         self.sprite.position = self.position
+    }
+    
+    func getSpeed() -> CGPoint {
+        return self.speed
+    }
+    
+    func setSpeed(newSpeed: CGPoint) {
+        var spd = CGPoint(x: newSpeed.x, y: newSpeed.y)
         
-        func getSpeed() -> CGPoint {
-            return self.speed
+        if newSpeed.x > 10 {
+            spd = CGPoint (x: 10, y: newSpeed.y)
         }
-        
-        func setSpeed(newSpeed: CGPoint) {
-            var spd = CGPoint(x: newSpeed.x, y: newSpeed.y)
+        else if newSpeed.x < -10 {
+            spd = CGPoint (x: -10, y: newSpeed.y)
+        }
+        else {
+            spd = CGPoint (x: spd.x, y: newSpeed.y)
+        }
             
-            if newSpeed.x > 3 {
-                spd = CGPoint (x: 3, y: newSpeed.y)
-            }
-            else if newSpeed.x < -3 {
-                spd = CGPoint (x: -3, y: newSpeed.y)
-            }
-            else {
-                spd = CGPoint (x: spd.x, y: newSpeed.y)
-            }
-                
-            
-            if newSpeed.y > 3 {
-                spd = CGPoint (x: spd.x, y: 3)
-            }
-            else if newSpeed.x < -3 {
-                spd = CGPoint (x: spd.x, y: -3)
-            }
-            else {
-                spd = CGPoint (x: spd.x, y: newSpeed.y)
-            }
-            
-            self.speed = spd
+        
+        if newSpeed.y > 10 {
+            spd = CGPoint (x: spd.x, y: 10)
+        }
+        else if newSpeed.x < -10 {
+            spd = CGPoint (x: spd.x, y: -10)
+        }
+        else {
+            spd = CGPoint (x: spd.x, y: newSpeed.y)
         }
         
-        func move() {
-            self.sprite.physicsBody?.velocity = CGVector(dx: self.speed.x, dy: self.speed.y)
-        }
-        
-        func fire (bulletSpeed: CGPoint) {
-            for var i = self.bulletNumber; i < self.TOTAL_BULLETS; i++ {
-                
+        self.speed = spd
+    }
+    
+    func move (){
+        self.sprite.physicsBody?.velocity = CGVector(dx: self.speed.x, dy: self.speed.y)
+    }
+    
+    func fire (bulletSpeed: CGPoint) -> Void {
+        for var i = self.bulletNumber; i < self.TOTAL_BULLETS; i++ {
+            if !bullets[i].isBeingFired {
+                bullets[i].setSpeed(bulletSpeed, newPosition: self.sprite.position)
+                bullets[i].isBeingFired = true
+                break
             }
         }
         
-        
+        bulletNumber++
+        if bulletNumber >= TOTAL_BULLETS {
+            bulletNumber = 0
+        }
     }
     
 }
