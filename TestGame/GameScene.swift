@@ -38,7 +38,7 @@ class GameScene: SKScene {
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         tank3.setSpeed(CGPoint(x: -10, y: -10))
         //tank3.move()
-        
+        var bob = "hello"
         
         tank3.fire(CGPoint(x: -80, y: -80))
         
