@@ -26,14 +26,37 @@ class Tank {
     // Constructor
     init(playerNum: Int, filename: NSString, tankName: NSString) {
         
+        sprite = SKSpriteNode(imageNamed:"Star.png")
+        
+        //sprite.xScale = 0.075
+        //sprite.yScale = 0.075
+       
+        
+        sprite.physicsBody = SKPhysicsBody(texture: SKTexture(imageNamed: "Star.png"), size: sprite.size)
+        if let physics = sprite.physicsBody {
+            physics.affectedByGravity = false
+            physics.allowsRotation = true
+            //physics.dynamic = true;
+            //physics.linearDamping = 0.75
+            //physics.angularDamping = 0.75
+        }
+
+        
+        //var spaceshipTexture = SKTexture(imageNamed: "Star.png")
+        //self.sprite = SKSpriteNode(texture: spaceshipTexture, size: spaceshipTexture.size())
+        
+        //println(self.sprite)
+        //sprite.physicsBody? = SKPhysicsBody(texture: SKTexture(imageNamed: "Spaceship"), size: sprite.size)
+        //println(self.sprite.physicsBody)
+        
         // Set the class variables
-        self.sprite = SKSpriteNode(imageNamed: filename)
+        //self.sprite = SKSpriteNode(imageNamed: filename)
         self.sprite.xScale = 0.1
         self.sprite.yScale = 0.1
         self.sprite.zRotation = CGFloat(M_PI)
         //self.texture = SKTexture(imageNamed: filename)
-        self.sprite.physicsBody = SKPhysicsBody(texture: sprite.texture, size: sprite.size)
-        self.sprite.physicsBody?.affectedByGravity = false
+        //self.sprite.physicsBody = SKPhysicsBody(texture: sprite.texture, size: sprite.size)
+        //self.sprite.physicsBody?.affectedByGravity = false
         self.name = tankName
         
         // Initialize all of the Bullet objects
@@ -104,6 +127,14 @@ class Tank {
         if bulletNumber >= TOTAL_BULLETS {
             bulletNumber = 0
         }
+    }
+    
+    func getWidth() -> CGFloat {
+        return sprite.size.width
+    }
+    
+    func getHeight() -> CGFloat {
+        return sprite.size.height
     }
     
 }

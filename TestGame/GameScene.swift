@@ -14,7 +14,7 @@ struct Tanks {
 class GameScene: SKScene {
     let tank1 = SKSpriteNode(imageNamed: "Spaceship")
     let tank2 = SKSpriteNode(imageNamed: "Spaceship")
-    lazy var tank3 = Tank(playerNum: 1, filename: "Spaceship", tankName: "Mason")
+    var tank3 = Tank(playerNum: 1, filename: "Spaceship", tankName: "Mason")
     let myLabel = SKLabelNode(fontNamed:"Chalkduster")
     override func didMoveToView(view: SKView) {
         //Setup your scene here
@@ -23,35 +23,13 @@ class GameScene: SKScene {
         myLabel.fontSize = 65;
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         self.addChild(myLabel)
-        /*
-        //let tank1 = self.childNodeWithName("tank1")
-        
-        let xVal = self.frame.width/2
-        let yVal = self.frame.height/2
-        
-        tank1.position = CGPoint(x: xVal, y: yVal - 20)
-        tank2.position = CGPoint(x: xVal, y: yVal)
-        tank1.xScale = 0.1
-        tank1.yScale = 0.1
-        tank2.xScale = 0.1
-        tank2.yScale = 0.1
-        
-        tank1.zRotation = 180
-        
-        
-        tank1.physicsBody = SKPhysicsBody(texture: tank1.texture, size: tank1.size)
-        tank1.physicsBody?.affectedByGravity = false
-        
-        //self.addChild(tank1)
-        //self.addChild(tank2)
-        */
         
         tank3.viewSize = CGPoint(x: self.frame.width, y: self.frame.height)
         self.addChild(tank3.sprite)
         
         for i in 0 ..< tank3.TOTAL_BULLETS {
             tank3.bullets[i].viewSize = tank3.viewSize
-            //tank3.bullets[i].sprite.physicsBody = SKPhysicsBody(texture: tank3.bullets[i].sprite.texture, size: tank3.bullets[i].sprite.size)
+            tank3.bullets[i].tankSize = tank3.sprite.size
             self.addChild(tank3.bullets[i].sprite)
         }
     }
@@ -59,12 +37,16 @@ class GameScene: SKScene {
     // Called when a touch begins
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         tank3.setSpeed(CGPoint(x: -10, y: -10))
-        tank3.move()
+        //tank3.move()
         
         
-        tank3.fire(CGPoint(x: -25, y: -26))
+        tank3.fire(CGPoint(x: -80, y: -80))
         
+        for i in 0 ..< tank3.TOTAL_BULLETS {
+            tank3.bullets[i].move()
+        }
 
+        
         // Set how quickly the balloons will 'shoot' out of the cannon
         //let impulseMagnitude: CGFloat = 70.0
         
@@ -103,13 +85,8 @@ class GameScene: SKScene {
         /* Called before each frame is rendered */
         for i in 0 ..< tank3.TOTAL_BULLETS {
             tank3.bullets[i].move()
-//            if (tank3.bullets[i].isBeingFired) {
-//                var bob = tank3.bullets[0].position
-//                var bob2 = tank3.position
-//                
-//            }
         }
-        myLabel.text = "\(tank3.bullets[1].position.x) - \(tank3.bullets[0].position.y)"
+        myLabel.text = "\(tank3.bullets[1].sprite.position.x) - \(tank3.bullets[0].sprite.position.y)"
         
         
         //let actionTank1 = SKAction.moveByX(5, y: 5.1, duration: 1)
